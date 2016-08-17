@@ -27,7 +27,7 @@ public class Main extends Application {
         //Components
         Label label = new Label("Welcome to SpellMate!");
         Button quizButton = new Button("New Spelling Quiz");
-        quizButton.setOnAction(event -> System.out.println("New Quiz"));
+        quizButton.setOnAction(event -> NewQuiz.display());
 
         Button reviewButton = new Button("Review");
         reviewButton.setOnAction(event -> System.out.println("Review"));

@@ -45,7 +45,7 @@ public class Main extends Application {
         layout.setAlignment(Pos.CENTER);
 
         //Scene
-        Scene scene = new Scene(layout, 300, 350);
+        Scene scene = new Scene(layout, 500, 500);
 
         window.setScene(scene);
         window.show();

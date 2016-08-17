@@ -32,7 +32,7 @@ public class NewQuiz {
         layout.setAlignment(Pos.CENTER);
 
         //Scene
-        Scene scene = new Scene(layout);
+        Scene scene = new Scene(layout, 300, 300);
 
         //Window
         window.setScene(scene);

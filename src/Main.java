@@ -38,7 +38,7 @@ public class Main extends Application {
         statisticsButton.setOnAction(event -> System.out.println("Statistics"));
 
         Button clearButton = new Button("Clear History");
-        clearButton.setOnAction(event -> System.out.println("Clear"));
+        clearButton.setOnAction(event -> new ClearHistory().display());
 
 
         //Layout

@@ -7,7 +7,9 @@ import java.util.Collection;
  */
 public class FileLogic {
 
-    public static void createFiles(String[] files) {
+    private static String[] files = {"attemptedlist.txt","reviewlist.txt", "mastered_stats.txt", "faulted_stats.txt", "failed_stats.txt"};
+
+    public static void createFiles() {
         for (String filename : files){
             File f = new File(filename);
             if(f.isFile()){

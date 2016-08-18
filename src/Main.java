@@ -12,17 +12,16 @@ import javafx.event.ActionEvent;
 
 public class Main extends Application {
 
-
     private Stage window;
-    private String[] files = {"attemptedlist.txt","reviewlist.txt", "mastered_stats.txt", "faulted_stats.txt", "failed_stats.txt"};
 
     public static void main(String[] args) {
+        FileLogic.createFiles();
 	    launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FileLogic.createFiles(files);
+
         //Main window with menu
         window = primaryStage;
         window.setTitle("Spelling Mate");

@@ -7,6 +7,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+
 /**
  * Created by Fraser McIntosh on 18/08/2016.
  */
@@ -59,8 +61,13 @@ public class NewQuiz {
 
     }
     private void startQuiz() {
-        System.out.println("Quiz started");
         window.setScene(scene2);
+        System.out.println("Quiz started");
+        QuizLogic logic = new QuizLogic("wordlist.txt");
+        ArrayList<String> words = logic.getWords();
+        int numWords = logic._numWords;
+        window.setScene(scene2);
+
     }
 
 }

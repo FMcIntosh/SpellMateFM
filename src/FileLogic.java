@@ -8,8 +8,14 @@ import java.util.Collection;
  * Created by Fraser McIntosh on 18/08/2016.
  */
 public class FileLogic {
+    static String attemptedlist = "attemptedlist.txt";
+    static String reviewlist = "reviewlist.txt";
+    static String mastered_stats = "mastered_stats.txt";
+    static String faulted_stats = "faulted_stats.txt";
+    static String failed_stats = "failed_stats.txt";
+    private static String[] files = {attemptedlist, reviewlist, mastered_stats, faulted_stats, failed_stats};
 
-    private static String[] files = {"attemptedlist.txt", "reviewlist.txt", "mastered_stats.txt", "faulted_stats.txt", "failed_stats.txt"};
+    private static String wordlist = "wordlist.txt";
 
     public static void createFiles() {
         for (String filename : files) {

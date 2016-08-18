@@ -42,6 +42,5 @@ public class ClearHistory {
         //Needs to be closed before returning
         window.showAndWait();
 
-
     }
 }

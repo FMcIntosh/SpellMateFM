@@ -41,7 +41,7 @@ public class ReviewQuiz {
 
         //Components 2
         TextField input = new TextField("Spell word here");
-        Button checkButton = new Button ("Check");
+        Button checkButton = new Button("Check");
         checkButton.setOnAction(event -> System.out.println("Check!"));
 
         //Layout
@@ -61,6 +61,7 @@ public class ReviewQuiz {
     private void startQuiz() {
         System.out.println("Quiz started");
         window.setScene(scene2);
+
     }
 
 }

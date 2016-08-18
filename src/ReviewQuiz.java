@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 /**
  * Created by Fraser McIntosh on 18/08/2016.
  */
-public class NewQuiz {
+public class ReviewQuiz {
     private Stage window;
     private Scene scene1, scene2;
     private int width, height;
@@ -22,13 +22,13 @@ public class NewQuiz {
         //Block user interaction with other windows until this window is
         // dealt with
         window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle("Spelling Quiz");
+        window.setTitle("Review Quiz");
         window.setMinWidth(250);
 
         //Components
         Label label = new Label();
-        label.setText("Spelling quiz");
-        Button startButton = new Button("Start Quiz");
+        label.setText("Review Your Mistakes");
+        Button startButton = new Button("Start Review");
         startButton.setOnAction(e -> startQuiz());
 
         //Layout

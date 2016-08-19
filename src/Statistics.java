@@ -1,10 +1,12 @@
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -37,28 +39,34 @@ public class Statistics {
 
         TableColumn<WordStatistic, String> wordColumn = new TableColumn<>("Word");
         wordColumn.setMinWidth(200);
-        wordColumn.setCellValueFactory(new PropertyValueFactory<>("_word"));
+        wordColumn.setCellValueFactory(new PropertyValueFactory<>("word"));
 
-        TableColumn<WordStatistic, String> faultedColumn = new TableColumn<>("Faults");
+        TableColumn<WordStatistic, Integer> faultedColumn = new TableColumn<>("Faults");
         faultedColumn.setMinWidth(100);
-        wordColumn.setCellValueFactory(new PropertyValueFactory<>("_faulted"));
+        faultedColumn.setCellValueFactory(new PropertyValueFactory<>("faulted"));
 
-        TableColumn<WordStatistic, String> failedColumn = new TableColumn<>("Failures");
+        TableColumn<WordStatistic, Integer> failedColumn = new TableColumn<>("Failures");
         failedColumn.setMinWidth(100);
-        wordColumn.setCellValueFactory(new PropertyValueFactory<>("_failed"));
+        failedColumn.setCellValueFactory(new PropertyValueFactory<>("failed"));
 
-        TableColumn<WordStatistic, String> masteredColumn = new TableColumn<>("Mastered");
+        TableColumn<WordStatistic, Integer> masteredColumn = new TableColumn<>("Mastered");
         masteredColumn.setMinWidth(100);
-        wordColumn.setCellValueFactory(new PropertyValueFactory<>("_mastered"));
+        masteredColumn.setCellValueFactory(new PropertyValueFactory<>("mastered"));
 
         TableView<WordStatistic> table = new TableView<>();
         table.setItems(getWordStatistics());
         table.getColumns().addAll(wordColumn, faultedColumn, failedColumn, masteredColumn);
 
-        VBox layout = new VBox();
-        layout.getChildren().addAll(table);
+        VBox root = new VBox();
 
-        return new Scene(layout);
+        root.getChildren().addAll(table);
+
+        ScrollPane scrollpane = new ScrollPane();
+        scrollpane.setFitToWidth(true);
+        scrollpane.setFitToHeight(true);
+        scrollpane.setPrefSize(500, 200);
+        scrollpane.setContent(root);
+        return new Scene(scrollpane);
     }
 
 

@@ -1,50 +1,53 @@
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 /**
  * Created by Fraser McIntosh on 20/08/2016.
  */
 public class WordStatistic {
-    private String _word;
-    private int _faulted;
-    private int _failed;
-    private int _mastered;
+    private SimpleStringProperty word;
+    private SimpleIntegerProperty faulted;
+    private SimpleIntegerProperty failed;
+    private SimpleIntegerProperty mastered;
 
     WordStatistic(String word) {
-        _word = word;
-        _faulted = FileLogic.countOccurences(FileLogic.faulted_stats, word);
-        _failed = FileLogic.countOccurences(FileLogic.failed_stats, word);
-        _mastered = FileLogic.countOccurences(FileLogic.mastered_stats, word);
+        this.word = new SimpleStringProperty(word);
+
+        faulted = new SimpleIntegerProperty(FileLogic.countOccurences(FileLogic.faulted_stats, word));
+        failed = new SimpleIntegerProperty(FileLogic.countOccurences(FileLogic.failed_stats, word));
+        mastered = new SimpleIntegerProperty(FileLogic.countOccurences(FileLogic.mastered_stats, word));
     }
 
     public String getWord() {
-        return _word;
+        return word.get();
     }
 
     public void setWord(String word) {
-        _word = word;
+       this.word.set(word);
     }
 
     public int getFaulted() {
-        return _faulted;
+        return faulted.get();
     }
 
     public void setFaulted(int faulted) {
-        _faulted = faulted;
+        this.faulted.set(faulted);
     }
 
     public int getFailed() {
-        return _failed;
+        return failed.get();
     }
 
     public void setFailed(int failed) {
-        _failed = failed;
+        this.failed.set(failed);
     }
 
     public int getMastered() {
-        return _mastered;
+        return mastered.get();
     }
 
     public void setMastered(int mastered) {
-        _mastered = mastered;
+       this.mastered.set(mastered);
     }
 }

@@ -16,7 +16,11 @@ public class NewQuiz {
     private Stage window;
     private Scene startScene, spellWordScene, correctScene, faultedScene, failedScene, noWordsScene;
     private int _sceneWidth, _sceneHeight;
-    private QuizLogic logic = new QuizLogic("wordlist.txt");
+    private QuizLogic logic;
+
+    NewQuiz(String wordsFile) {
+        logic = new QuizLogic(wordsFile);
+    }
 
     public void setUp() {
         _sceneWidth = 300;

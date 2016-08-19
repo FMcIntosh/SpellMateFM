@@ -12,7 +12,7 @@ public class FileLogic {
     static String failed_stats = "failed_stats.txt";
     private static String[] files = {attemptedlist, reviewlist, mastered_stats, faulted_stats, failed_stats};
 
-    private static String wordlist = "wordlist.txt";
+    static String wordlist = "wordlist.txt";
 
     public static void createFiles() {
         for (String filename : files) {
@@ -47,8 +47,14 @@ public class FileLogic {
         }
     }
 
+    public static void addUniqueWord(String file, String word){
+        if(!containsWord(file, word)){
+            addWord(file, word);
+        }
+    }
+
     public static void addWord(String file, String word){
-        PrintWriter output = null;
+        PrintWriter output;
         try {
             output = new PrintWriter(new FileWriter(file, true));
             System.out.println("Writing word to file: " + word);
@@ -60,5 +66,59 @@ public class FileLogic {
         }
     }
 
+
+
+
+    public static boolean containsWord(String file, String word){
+        BufferedReader in = null;
+        try {
+            in = new BufferedReader(new FileReader(file));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            String currentWord=in.readLine();
+            while(currentWord!=null) {
+                if(word.equals(currentWord)){
+                    return true;
+                }
+                currentWord= in.readLine();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static boolean removeWord(String file, String word){
+        // I got this method from http://stackoverflow.com/questions/1377279/find-a-line-in-a-file-and-remove-it
+        File inputFile = null;
+        File tempFile = null;
+        try {
+            inputFile = new File(file);
+            tempFile = new File("myTempFile.txt");
+
+            BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+
+            String lineToRemove = word;
+            String currentLine;
+
+            while((currentLine = reader.readLine()) != null) {
+                // trim newline when comparing with lineToRemove
+                String trimmedLine = currentLine.trim();
+                if(trimmedLine.equals(lineToRemove)) continue;
+                writer.write(currentLine + System.getProperty("line.separator"));
+            }
+         //   tempFile.renameTo(inputFile);
+            writer.close();
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
 
 }

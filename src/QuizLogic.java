@@ -22,7 +22,6 @@ public class QuizLogic {
         _wordlist = wordlist;
         _numWordsInFile = numWords(wordlist);
         _wordsInQuiz = pickWords();
-
     }
 
     /*
@@ -57,14 +56,13 @@ public class QuizLogic {
         // Get number of lines in list
         BufferedReader in = null;
         try {
-            in = new BufferedReader(new FileReader(_wordlist));
+            in = new BufferedReader(new FileReader(file));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         int numWords = 0;
         try {
             while(in.readLine()!=null) {
-                in.readLine();
                 numWords++;
             }
         } catch (IOException e) {
@@ -81,14 +79,17 @@ public class QuizLogic {
      * Helper function to pick a random line from a file
      */
     private String getWord() throws Exception{
-        Scanner in = new Scanner(new FileReader("wordlist.txt"));
+        Scanner in = new Scanner(new FileReader(_wordlist));
         String word = "";
-        int line =  new Random().nextInt((_numWordsInFile) + 1) + 1;
-        int count = 1;
-        while(count < line) {
+        int line =  new Random().nextInt((_numWordsInFile)) + 1;
+        System.out.println("Random Line number: " + line);
+        int count = 0;
+        while(count < line && in.hasNextLine()) {
             count++;
             word = in.nextLine();
-            in.nextLine();
+            if(word.equals("") && in.hasNextLine()) {
+                word = in.nextLine();
+            }
         }
         System.out.println("Getting word: " +word);
         return word;
@@ -116,6 +117,7 @@ public class QuizLogic {
      * Updates state to check if it is the second attempt
      */
     public boolean checkAnswer(String attempt) {
+        FileLogic.addUniqueWord(FileLogic.attemptedlist, _currentWord);
         System.out.println("Checking answer for: " + _wordsInQuiz.get(_currentWordNumber - 1));
         if (attempt.equals(_wordsInQuiz.get(_currentWordNumber - 1))) {
             // If correct then can't be on second attempt
@@ -123,10 +125,13 @@ public class QuizLogic {
                 FileLogic.addWord(FileLogic.faulted_stats, _currentWord);
             } else {
                 FileLogic.addWord(FileLogic.mastered_stats, _currentWord);
+                System.out.println("Removing word: "+ _currentWord);
+                FileLogic.removeWord(FileLogic.reviewlist, _currentWord);
             }
             isSecondAttempt = false;
             return true;
         } else {
+            FileLogic.addUniqueWord(FileLogic.reviewlist, _currentWord);
             if (isSecondAttempt) {
                 FileLogic.addWord(FileLogic.failed_stats, _currentWord);
             }

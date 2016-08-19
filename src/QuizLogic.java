@@ -17,11 +17,14 @@ public class QuizLogic {
     public ArrayList<String> _wordsInQuiz;
     public int _numWordsInQuiz;
     public boolean _hasWords;
+    public boolean isSecondAttempt = false;
+    public boolean isLastAttempt = false;
 
     QuizLogic(String wordlist){
         _wordlist = wordlist;
         _numWordsInFile = numWords(wordlist);
         _wordsInQuiz = pickWords();
+
     }
 
     /*
@@ -37,7 +40,7 @@ public class QuizLogic {
             }
             try {
                 String word = getWord();
-                while(words.contains(word)){
+                while(words.contains(word) || word.equals("")){
                     word = getWord();
                 }
                 words.add(word);
@@ -69,6 +72,7 @@ public class QuizLogic {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        // Check that there are words
         if(numWords != 0) {
             _hasWords= true;
         }
@@ -85,7 +89,7 @@ public class QuizLogic {
         int count = 1;
         while(count < line) {
             count++;
-                word = in.nextLine();
+            word = in.nextLine();
             in.nextLine();
         }
         System.out.println(word);
@@ -96,9 +100,12 @@ public class QuizLogic {
      * Returns the next word from the words array
      */
     public String nextWord() {
-        if(_currentWordNumber < _numWordsInQuiz) {
+        if(_currentWordNumber <= _numWordsInQuiz) {
             _currentWordNumber++;
-            return _wordsInQuiz.get(_currentWordNumber);
+            if(_currentWordNumber == _numWordsInQuiz) {
+                isLastAttempt = true;
+            }
+            return _wordsInQuiz.get(_currentWordNumber - 1);
         } else {
             return "";
         }
@@ -106,12 +113,17 @@ public class QuizLogic {
 
     /*
      * Takes a string and checks if the string is the current word
+     * Updates state to check if it is the second attempt
      */
     public boolean checkAnswer(String attempt) {
         System.out.println(_wordsInQuiz.get(_currentWordNumber));
         if (attempt.equals(_wordsInQuiz.get(_currentWordNumber))) {
+            // If correct then can't be on second attempt
+            isSecondAttempt = false;
             return true;
         } else {
+            //
+            isSecondAttempt = !isSecondAttempt;
             return false;
         }
     }

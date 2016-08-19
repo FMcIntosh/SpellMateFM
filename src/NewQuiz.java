@@ -14,20 +14,33 @@ import java.util.ArrayList;
  */
 public class NewQuiz {
     private Stage window;
-    private Scene scene1, scene2, correctScene, incorrectScene, noWordsScene;
-    private int width, height;
+    private Scene startScene, spellWordScene, correctScene, incorrectScene, noWordsScene;
+    private int _sceneWidth, _sceneHeight;
     private QuizLogic logic = new QuizLogic("wordlist.txt");
-    public void display() {
-        window = new Stage();
-        int width = 300;
-        int height = 300;
+
+    public void setUp() {
+        _sceneWidth = 300;
+        _sceneHeight = 300;
 
         //Block user interaction with other windows until this window is
         // dealt with
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Spelling Quiz");
         window.setMinWidth(250);
+    }
 
+    public void display() {
+        window = new Stage();
+        setUp();
+        buildScenes();
+
+        //Window
+        window.setScene(startScene);
+        //Needs to be closed before returning
+        window.showAndWait();
+    }
+
+    private void buildScenes() {
         // ----------------------------------------------- Start quiz scene
         //Components
         Label label = new Label("Spelling quiz");
@@ -40,7 +53,7 @@ public class NewQuiz {
         layout1.setAlignment(Pos.CENTER);
 
         //Scene
-        scene1 = new Scene(layout1, width, height);
+        startScene = new Scene(layout1, _sceneWidth, _sceneHeight);
 
         // ----------------------------------------------- New quiz scene
         //Components 2
@@ -53,7 +66,7 @@ public class NewQuiz {
         layout2.getChildren().addAll(input, checkButton);
         layout2.setAlignment(Pos.CENTER);
 
-        scene2 = new Scene(layout2, width, height);
+        spellWordScene = new Scene(layout2, _sceneWidth, _sceneHeight);
 
         // ----------------------------------------------- Correct scene
         //Components
@@ -65,28 +78,24 @@ public class NewQuiz {
         layout3.getChildren().addAll(label3, nextButton);
         layout3.setAlignment(Pos.CENTER);
 
-        correctScene = new Scene(layout3, width, height);
+        correctScene = new Scene(layout3, _sceneWidth, _sceneHeight);
 
         // ----------------------------------------------- Incorrect scene
         //Components
         Label label4 = new Label("Incorrect");
         Button againButton = new Button("Try Again");
-        againButton.setOnAction(e -> newQuestion());
+        againButton.setOnAction(e -> failed());
         //Layout
         VBox layout4 = new VBox(10);
         layout4.getChildren().addAll(label4, againButton);
         layout4.setAlignment(Pos.CENTER);
 
-        incorrectScene = new Scene(layout4, width, height);
-        //Window
-        window.setScene(scene1);
-        //Needs to be closed before returning
-        window.showAndWait();
-
+        incorrectScene = new Scene(layout4, _sceneWidth, _sceneHeight);
 
         // ----------------------------------------------- noWords scene
-
     }
+
+
     private void startQuiz() {
         System.out.println("Quiz started");
         if(logic._hasWords) {
@@ -98,12 +107,14 @@ public class NewQuiz {
 
     private void newQuestion() {
         logic.nextWord();
-        window.setScene(scene2);
+        window.setScene(spellWordScene);
         System.out.println("New Question");
     }
 
-    private void failedFirst() {
-
+    private void failed() {
+        if(logic.isSecondAttempt)
+        window.setScene(spellWordScene);
+        System.out.println("New Question");
     }
 
 

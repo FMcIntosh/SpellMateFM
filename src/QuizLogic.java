@@ -32,7 +32,7 @@ public class QuizLogic {
      */
     public ArrayList<String> pickWords(){
         ArrayList<String> words = new ArrayList<>();
-        System.out.println(_numWordsInFile);
+        System.out.println("There are: " +_numWordsInFile+ " words in the file");
 
         for(int i = 0; i <_numWordsInFile; i++){
             if(i>2) {
@@ -92,7 +92,7 @@ public class QuizLogic {
             word = in.nextLine();
             in.nextLine();
         }
-        System.out.println(word);
+        System.out.println("Getting word: " +word);
         return word;
     }
 
@@ -118,7 +118,7 @@ public class QuizLogic {
      * Updates state to check if it is the second attempt
      */
     public boolean checkAnswer(String attempt) {
-        System.out.println(_wordsInQuiz.get(_currentWordNumber -1));
+        System.out.println("Checking answer for: " + _wordsInQuiz.get(_currentWordNumber -1));
         if (attempt.equals(_wordsInQuiz.get(_currentWordNumber -1))) {
             // If correct then can't be on second attempt
             isSecondAttempt = false;

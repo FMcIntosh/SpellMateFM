@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public class NewQuiz {
     private Stage window;
-    private Scene startScene, spellWordScene, correctScene, incorrectFirstScene, incorrectSecondScene, noWordsScene;
+    private Scene startScene, spellWordScene, correctScene, faultedScene, failedScene, noWordsScene;
     private int _sceneWidth, _sceneHeight;
     private QuizLogic logic = new QuizLogic("wordlist.txt");
 
@@ -84,13 +84,13 @@ public class NewQuiz {
         //Components
         Label label4 = new Label("Incorrect");
         Button againButton = new Button("Try Again");
-        againButton.setOnAction(e -> failed());
+        againButton.setOnAction(e -> window.setScene(spellWordScene));
         //Layout
         VBox layout4 = new VBox(10);
         layout4.getChildren().addAll(label4, againButton);
         layout4.setAlignment(Pos.CENTER);
 
-        incorrectFirstScene = new Scene(layout4, _sceneWidth, _sceneHeight);
+        faultedScene = new Scene(layout4, _sceneWidth, _sceneHeight);
 
         // ----------------------------------------------- noWords scene
         //Components
@@ -102,7 +102,7 @@ public class NewQuiz {
         layout5.getChildren().addAll(label4, nextButton);
         layout5.setAlignment(Pos.CENTER);
 
-        incorrectSecondScene = new Scene(layout5, _sceneWidth, _sceneHeight);
+        failedScene = new Scene(layout5, _sceneWidth, _sceneHeight);
     }
 
 
@@ -119,30 +119,29 @@ public class NewQuiz {
         logic.isSecondAttempt = false;
         logic.nextWord();
         window.setScene(spellWordScene);
-        System.out.println("New Question");
+        System.out.println("Started a new Question");
     }
 
     private void failed() {
+        System.out.println("Word has been answered incorrectly");
         if(logic.isSecondAttempt) {
             if (logic.isLastAttempt) {
                 System.out.println("last logic stuff");
             } else {
-                System.out.println("ASD");
-                window.setScene(incorrectSecondScene);
+                window.setScene(failedScene);
             }
         } else {
-            System.out.println("ESDFF");
             logic.isSecondAttempt = true;
             window.setScene(spellWordScene);
         }
-        System.out.println("New Question");
+
     }
 
 
     private void checkAnswer(String attempt){
         System.out.println("checked");
         boolean isCorrect = logic.checkAnswer(attempt);
-        System.out.println(isCorrect);
+        System.out.println("Is the attempt correct? " + isCorrect);
         if(isCorrect) {
             displayCorrectScene();
         } else {
@@ -151,10 +150,12 @@ public class NewQuiz {
     }
 
     private void displayIncorrectScene(){
+        System.out.println("is this the second attempt? " + logic.isSecondAttempt);
         if(logic.isSecondAttempt) {
-            window.setScene(incorrectSecondScene);
+            Scene scene = buildFailedScene(logic.isLastAttempt);
+            window.setScene(scene);
         } else {
-            window.setScene(incorrectFirstScene);
+            window.setScene(faultedScene);
         }
     }
 
@@ -176,7 +177,7 @@ public class NewQuiz {
         Button nextButton = new Button();
         if(isLastAttempt) {
             nextButton.setText("Finish");
-            //nextButton.setOnAction(e -> finish());
+            nextButton.setOnAction(e -> finish());
         } else {
             nextButton.setText("Next Question");
             nextButton.setOnAction(e -> newQuestion());
@@ -186,8 +187,36 @@ public class NewQuiz {
         layout3.getChildren().addAll(label3, nextButton);
         layout3.setAlignment(Pos.CENTER);
 
-        correctScene = new Scene(layout3, _sceneWidth, _sceneHeight);
-        return correctScene;
+        return new Scene(layout3, _sceneWidth, _sceneHeight);
     }
+
+    public Scene buildFailedScene(boolean isLastAttempt) {
+        //Components
+        Label label3 = new Label("Incorrect");
+
+        Button nextButton = new Button();
+        if(isLastAttempt) {
+            nextButton.setText("Finish");
+            nextButton.setOnAction(e -> finish());
+        } else {
+            nextButton.setText("Next Question");
+            nextButton.setOnAction(e -> newQuestion());
+        }
+        //Layout
+        VBox layout3 = new VBox(10);
+        layout3.getChildren().addAll(label3, nextButton);
+        layout3.setAlignment(Pos.CENTER);
+
+        return new Scene(layout3, _sceneWidth, _sceneHeight);
+        // faultedScene;
+    }
+
+
+    public void finish() {
+        System.out.println("Close window");
+        window.close();
+    }
+    //public Scene buildFaultedScene() {}
+
 
 }

@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -102,6 +103,7 @@ public class FileLogic {
 
             BufferedReader reader = new BufferedReader(new FileReader(inputFile));
             BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+            ArrayList<String> lines = new ArrayList<>();
 
             String lineToRemove = word;
             String currentLine;
@@ -110,11 +112,15 @@ public class FileLogic {
                 // trim newline when comparing with lineToRemove
                 String trimmedLine = currentLine.trim();
                 if(trimmedLine.equals(lineToRemove)) continue;
-                writer.write(currentLine + System.getProperty("line.separator"));
+                lines.add(currentLine);
             }
-         //   tempFile.renameTo(inputFile);
+            PrintWriter output = new PrintWriter(new FileWriter(file));
+            for(String s : lines) {
+                output.println(s);
+            }
             writer.close();
             reader.close();
+            output.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

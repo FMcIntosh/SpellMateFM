@@ -118,6 +118,8 @@ public class NewQuiz {
         //Components
         Label label6 = new Label("There are no words to be quizzed on!");
         Button okButton = new Button("OK");
+        okButton.setOnAction(e -> finish());
+
         //Layout
         VBox layout7 = new VBox(10);
         layout7.getChildren().addAll(label6, okButton);

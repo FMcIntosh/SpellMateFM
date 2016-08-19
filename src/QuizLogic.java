@@ -156,7 +156,9 @@ public class QuizLogic {
         String word = "";
         for(String s : wordSplit){
             word+= s + " ";
+
         }
+        System.out.println(word);
 //        ProcessBuilder builder = new ProcessBuilder("echo" + word, "|", "festival", "--tts");
 //        try {
 //            Process process = builder.start();

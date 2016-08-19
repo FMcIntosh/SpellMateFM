@@ -7,8 +7,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-
 /**
  * Created by Fraser McIntosh on 18/08/2016.
  */
@@ -209,7 +207,6 @@ public class NewQuiz {
     }
 
     private void displayNoWords() {
-        Label label = new Label("There are no words to be quizzed on");
         window.setScene(noWordsScene);
     }
 

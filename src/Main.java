@@ -1,14 +1,10 @@
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import javafx.event.ActionEvent;
 
 public class Main extends Application {
 
@@ -56,6 +52,7 @@ public class Main extends Application {
         //Scene
         scene = new Scene(layout, 500, 500);
 
+        window.setMaximized(true);
         window.setScene(scene);
         window.show();
 

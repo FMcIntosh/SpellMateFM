@@ -13,7 +13,7 @@ import javafx.event.ActionEvent;
 public class Main extends Application {
 
     private Stage window;
-
+    private double _buttonSize = 200;
     public static void main(String[] args) {
         FileLogic.createFiles();
 	    launch(args);
@@ -29,15 +29,19 @@ public class Main extends Application {
         //Components
         Label label = new Label("Welcome to SpellMate!");
         Button quizButton = new Button("New Spelling Quiz");
+        quizButton.setPrefWidth(_buttonSize);
         quizButton.setOnAction(event -> new NewQuiz().display());
 
         Button reviewButton = new Button("Review");
+        reviewButton.setPrefWidth(_buttonSize);
         reviewButton.setOnAction(event -> new ReviewQuiz().display());
 
         Button statisticsButton = new Button("Statistics");
+        statisticsButton.setPrefWidth(_buttonSize);
         statisticsButton.setOnAction(event -> System.out.println("Statistics"));
 
         Button clearButton = new Button("Clear History");
+        clearButton.setPrefWidth(_buttonSize);
         clearButton.setOnAction(event -> new ClearHistory().display());
 
 

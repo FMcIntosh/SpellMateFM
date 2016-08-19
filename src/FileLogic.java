@@ -49,4 +49,6 @@ public class FileLogic {
             }
         }
     }
+
+    public static void addWord(String file){}
 }

@@ -1,6 +1,5 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Collection;
 
 /**
  * Created by Fraser McIntosh on 18/08/2016.
@@ -18,9 +17,7 @@ public class FileLogic {
     public static void createFiles() {
         for (String filename : files) {
             File f = new File(filename);
-            if (f.isFile()) {
-                //do nothing
-            } else {
+            if (!f.isFile()) {
                 try {
                     f.createNewFile();
                 } catch (IOException e) {
@@ -95,14 +92,8 @@ public class FileLogic {
 
     public static boolean removeWord(String file, String word){
         // I got this method from http://stackoverflow.com/questions/1377279/find-a-line-in-a-file-and-remove-it
-        File inputFile = null;
-        File tempFile = null;
         try {
-            inputFile = new File(file);
-            tempFile = new File("myTempFile.txt");
-
-            BufferedReader reader = new BufferedReader(new FileReader(inputFile));
-            BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+            BufferedReader reader = new BufferedReader(new FileReader(new File(file)));
             ArrayList<String> lines = new ArrayList<>();
 
             String lineToRemove = word;
@@ -118,7 +109,6 @@ public class FileLogic {
             for(String s : lines) {
                 output.println(s);
             }
-            writer.close();
             reader.close();
             output.close();
         } catch (IOException e) {

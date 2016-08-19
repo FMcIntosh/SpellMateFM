@@ -35,7 +35,11 @@ public class NewQuiz {
         buildScenes();
 
         //Window
-        window.setScene(startScene);
+        if(logic._hasWords) {
+            window.setScene(startScene);
+        } else {
+            window.setScene(noWordsScene);
+        }
         //Needs to be closed before returning
         window.showAndWait();
     }
@@ -94,8 +98,6 @@ public class NewQuiz {
 
         // ----------------------------------------------- noWords scene
         //Components
-        Label label5 = new Label("Incorrect");
-        Button nextWordButton = new Button("Try Again");
         againButton.setOnAction(e -> failed());
         //Layout
         VBox layout5 = new VBox(10);
@@ -103,6 +105,17 @@ public class NewQuiz {
         layout5.setAlignment(Pos.CENTER);
 
         failedScene = new Scene(layout5, _sceneWidth, _sceneHeight);
+
+        // ----------------------------------------------- noWords scene
+        //Components
+        Label label6 = new Label("There are no words to be quizzed on!");
+        Button okButton = new Button("OK");
+        //Layout
+        VBox layout7 = new VBox(10);
+        layout7.getChildren().addAll(label6, okButton);
+        layout7.setAlignment(Pos.CENTER);
+
+        noWordsScene = new Scene(layout7, _sceneWidth, _sceneHeight);
     }
 
 
@@ -167,6 +180,7 @@ public class NewQuiz {
     }
 
     private void displayNoWords() {
+        Label label = new Label("There are no words to be quizzed on");
         window.setScene(noWordsScene);
     }
 

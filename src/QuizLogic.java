@@ -19,6 +19,7 @@ public class QuizLogic {
     public boolean _hasWords;
     public boolean isSecondAttempt = false;
     public boolean isLastAttempt = false;
+    private String _currentWord = "";
 
     QuizLogic(String wordlist){
         _wordlist = wordlist;
@@ -106,7 +107,7 @@ public class QuizLogic {
             if(_currentWordNumber == _numWordsInQuiz) {
                 isLastAttempt = true;
             }
-            System.out.println("Current word is: " +  _wordsInQuiz.get(_currentWordNumber - 1));
+           _currentWord = _wordsInQuiz.get(_currentWordNumber - 1);
             return _wordsInQuiz.get(_currentWordNumber - 1);
         } else {
             return "";
@@ -128,4 +129,27 @@ public class QuizLogic {
         }
     }
 
+    public void sayWord() {
+        System.out.println(_currentWord);
+//        ProcessBuilder builder = new ProcessBuilder("echo" + _currentWord, "|", "festival", "--tts");
+//        try {
+//            Process process = builder.start();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+    }
+
+    public void spellOutWord() {
+        String[] wordSplit = _currentWord.split("");
+        String word = "";
+        for(String s : wordSplit){
+            word+= s + " ";
+        }
+        ProcessBuilder builder = new ProcessBuilder("echo" + word, "|", "festival", "--tts");
+        try {
+            Process process = builder.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

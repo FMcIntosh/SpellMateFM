@@ -47,6 +47,7 @@ public class NewQuiz {
     private void buildScenes() {
         // ----------------------------------------------- Start quiz scene
         //Components
+        //Change this for review
         Label label = new Label("Spelling quiz");
         Button startButton = new Button("Start Quiz");
         startButton.setOnAction(e -> startQuiz());
@@ -64,10 +65,13 @@ public class NewQuiz {
         TextField input = new TextField("Spell word here");
         Button checkButton = new Button ("Check");
         checkButton.setOnAction(event -> checkAnswer(input.getText()));
+        Button sayButton = new Button ("Say Word");
+        // Change this for review
+        sayButton.setOnAction(event -> logic.sayWord());
 
         //Layout
         VBox layout2 = new VBox(2);
-        layout2.getChildren().addAll(input, checkButton);
+        layout2.getChildren().addAll(sayButton, input, checkButton);
         layout2.setAlignment(Pos.CENTER);
 
         spellWordScene = new Scene(layout2, _sceneWidth, _sceneHeight);

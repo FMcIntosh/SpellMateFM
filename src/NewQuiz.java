@@ -161,12 +161,33 @@ public class NewQuiz {
     private void displayCorrectScene(){
 
         //Scene
-        window.setScene(correctScene);
+        Scene scene = buildCorrectScene(logic.isLastAttempt);
+        window.setScene(scene);
     }
 
     private void displayNoWords() {
         window.setScene(noWordsScene);
     }
 
+    public Scene buildCorrectScene(boolean isLastAttempt) {
+        //Components
+        Label label3 = new Label("Correct");
+
+        Button nextButton = new Button();
+        if(isLastAttempt) {
+            nextButton.setText("Finish");
+            //nextButton.setOnAction(e -> finish());
+        } else {
+            nextButton.setText("Next Question");
+            nextButton.setOnAction(e -> newQuestion());
+        }
+        //Layout
+        VBox layout3 = new VBox(10);
+        layout3.getChildren().addAll(label3, nextButton);
+        layout3.setAlignment(Pos.CENTER);
+
+        correctScene = new Scene(layout3, _sceneWidth, _sceneHeight);
+        return correctScene;
+    }
 
 }

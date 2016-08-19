@@ -127,4 +127,26 @@ public class FileLogic {
         return true;
     }
 
+    public static int countOccurences(String file, String word) {
+        BufferedReader in = null;
+        try {
+            in = new BufferedReader(new FileReader(file));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        int count = 0;
+        try {
+            String currentWord=in.readLine();
+            while(currentWord!=null) {
+                if(word.equals(currentWord)){
+                    count++;
+                }
+                currentWord= in.readLine();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
 }

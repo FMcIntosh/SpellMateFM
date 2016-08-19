@@ -38,7 +38,7 @@ public class Main extends Application {
 
         Button statisticsButton = new Button("Statistics");
         statisticsButton.setPrefWidth(_buttonSize);
-        statisticsButton.setOnAction(event -> System.out.println("Statistics"));
+        statisticsButton.setOnAction(event -> window.setScene(new Statistics().constructScene()));
 
         Button clearButton = new Button("Clear History");
         clearButton.setPrefWidth(_buttonSize);

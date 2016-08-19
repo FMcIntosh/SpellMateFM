@@ -100,11 +100,13 @@ public class QuizLogic {
      * Returns the next word from the words array
      */
     public String nextWord() {
-        if(_currentWordNumber <= _numWordsInQuiz) {
+        if(_currentWordNumber < _numWordsInQuiz) {
             _currentWordNumber++;
+            System.out.println(_currentWordNumber + " " + _numWordsInQuiz);
             if(_currentWordNumber == _numWordsInQuiz) {
                 isLastAttempt = true;
             }
+            System.out.println("Current word is: " +  _wordsInQuiz.get(_currentWordNumber - 1));
             return _wordsInQuiz.get(_currentWordNumber - 1);
         } else {
             return "";
@@ -116,8 +118,8 @@ public class QuizLogic {
      * Updates state to check if it is the second attempt
      */
     public boolean checkAnswer(String attempt) {
-        System.out.println(_wordsInQuiz.get(_currentWordNumber));
-        if (attempt.equals(_wordsInQuiz.get(_currentWordNumber))) {
+        System.out.println(_wordsInQuiz.get(_currentWordNumber -1));
+        if (attempt.equals(_wordsInQuiz.get(_currentWordNumber -1))) {
             // If correct then can't be on second attempt
             isSecondAttempt = false;
             return true;

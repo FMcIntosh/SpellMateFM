@@ -93,6 +93,16 @@ public class NewQuiz {
         incorrectFirstScene = new Scene(layout4, _sceneWidth, _sceneHeight);
 
         // ----------------------------------------------- noWords scene
+        //Components
+        Label label5 = new Label("Incorrect");
+        Button nextWordButton = new Button("Try Again");
+        againButton.setOnAction(e -> failed());
+        //Layout
+        VBox layout5 = new VBox(10);
+        layout5.getChildren().addAll(label4, nextButton);
+        layout5.setAlignment(Pos.CENTER);
+
+        incorrectSecondScene = new Scene(layout5, _sceneWidth, _sceneHeight);
     }
 
 
@@ -106,6 +116,7 @@ public class NewQuiz {
     }
 
     private void newQuestion() {
+        logic.isSecondAttempt = false;
         logic.nextWord();
         window.setScene(spellWordScene);
         System.out.println("New Question");
@@ -113,8 +124,12 @@ public class NewQuiz {
 
     private void failed() {
         if(logic.isSecondAttempt) {
-            System.out.println("ASD");
-            window.setScene(incorrectFirstScene);
+            if (logic.isLastAttempt) {
+                System.out.println("last logic stuff");
+            } else {
+                System.out.println("ASD");
+                window.setScene(incorrectSecondScene);
+            }
         } else {
             System.out.println("ESDFF");
             logic.isSecondAttempt = true;
@@ -137,7 +152,7 @@ public class NewQuiz {
 
     private void displayIncorrectScene(){
         if(logic.isSecondAttempt) {
-            System.out.println("second attempt screen");
+            window.setScene(incorrectSecondScene);
         } else {
             window.setScene(incorrectFirstScene);
         }

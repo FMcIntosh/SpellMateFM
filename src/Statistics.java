@@ -37,7 +37,6 @@ public class Statistics {
     }
 
     public Scene constructScene() {
-
         TableColumn<WordStatistic, String> wordColumn = new TableColumn<>("Word");
         wordColumn.setMinWidth(200);
         wordColumn.setCellValueFactory(new PropertyValueFactory<>("word"));

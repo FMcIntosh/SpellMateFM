@@ -33,11 +33,11 @@ public class Main extends Application {
         Label label = new Label("Welcome to SpellMate!");
         Button quizButton = new Button("New Spelling Quiz");
         quizButton.setPrefWidth(_buttonSize);
-        quizButton.setOnAction(event -> new NewQuiz(FileLogic.wordlist).display());
+        quizButton.setOnAction(event -> new NewQuiz(FileLogic.wordlist, false).display());
 
         Button reviewButton = new Button("Review");
         reviewButton.setPrefWidth(_buttonSize);
-        reviewButton.setOnAction(event -> new NewQuiz(FileLogic.reviewlist).display());
+        reviewButton.setOnAction(event -> new NewQuiz(FileLogic.reviewlist, true).display());
 
         Button statisticsButton = new Button("Statistics");
         statisticsButton.setPrefWidth(_buttonSize);

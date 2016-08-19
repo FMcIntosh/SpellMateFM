@@ -16,10 +16,12 @@ public class NewQuiz {
     private Stage window;
     private Scene startScene, spellWordScene, correctScene, faultedScene, failedScene, noWordsScene;
     private int _sceneWidth, _sceneHeight;
+    private boolean _isReview;
     private QuizLogic logic;
 
-    NewQuiz(String wordsFile) {
+    NewQuiz(String wordsFile, boolean isReview) {
         logic = new QuizLogic(wordsFile);
+        _isReview = isReview;
     }
 
     public void setUp() {
@@ -29,7 +31,13 @@ public class NewQuiz {
         //Block user interaction with other windows until this window is
         // dealt with
         window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle("Spelling Quiz");
+        //Logic for if this is a review quiz
+        if(_isReview) {
+            window.setTitle("Review");
+        } else {
+            window.setTitle("Spelling Quiz");
+        }
+
         window.setMinWidth(250);
     }
 
@@ -53,6 +61,10 @@ public class NewQuiz {
         //Components
         //Change this for review
         Label label = new Label("Spelling quiz");
+        //Logic for if this is a review quiz
+        if(_isReview){
+            label = new Label("Review");
+        }
         Button startButton = new Button("Start Quiz");
         startButton.setOnAction(e -> startQuiz());
 
@@ -76,6 +88,13 @@ public class NewQuiz {
         //Layout
         VBox layout2 = new VBox(2);
         layout2.getChildren().addAll(sayButton, input, checkButton);
+
+        //Logic for if this is a review quiz
+        if(_isReview) {
+            Button spellButton = new Button("Spell Out Word");
+            spellButton.setOnAction(event -> logic.spellOutWord());
+            layout2.getChildren().addAll(spellButton);
+        }
         layout2.setAlignment(Pos.CENTER);
 
         spellWordScene = new Scene(layout2, _sceneWidth, _sceneHeight);

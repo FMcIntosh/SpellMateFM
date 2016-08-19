@@ -157,11 +157,11 @@ public class QuizLogic {
         for(String s : wordSplit){
             word+= s + " ";
         }
-        ProcessBuilder builder = new ProcessBuilder("echo" + word, "|", "festival", "--tts");
-        try {
-            Process process = builder.start();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        ProcessBuilder builder = new ProcessBuilder("echo" + word, "|", "festival", "--tts");
+//        try {
+//            Process process = builder.start();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 }

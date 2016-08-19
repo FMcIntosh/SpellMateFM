@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public class NewQuiz {
     private Stage window;
-    private Scene startScene, spellWordScene, correctScene, incorrectScene, noWordsScene;
+    private Scene startScene, spellWordScene, correctScene, incorrectFirstScene, incorrectSecondScene, noWordsScene;
     private int _sceneWidth, _sceneHeight;
     private QuizLogic logic = new QuizLogic("wordlist.txt");
 
@@ -80,7 +80,7 @@ public class NewQuiz {
 
         correctScene = new Scene(layout3, _sceneWidth, _sceneHeight);
 
-        // ----------------------------------------------- Incorrect scene
+        // ----------------------------------------------- Incorrect First scene
         //Components
         Label label4 = new Label("Incorrect");
         Button againButton = new Button("Try Again");
@@ -90,7 +90,7 @@ public class NewQuiz {
         layout4.getChildren().addAll(label4, againButton);
         layout4.setAlignment(Pos.CENTER);
 
-        incorrectScene = new Scene(layout4, _sceneWidth, _sceneHeight);
+        incorrectFirstScene = new Scene(layout4, _sceneWidth, _sceneHeight);
 
         // ----------------------------------------------- noWords scene
     }
@@ -112,8 +112,14 @@ public class NewQuiz {
     }
 
     private void failed() {
-        if(logic.isSecondAttempt)
-        window.setScene(spellWordScene);
+        if(logic.isSecondAttempt) {
+            System.out.println("ASD");
+            window.setScene(incorrectFirstScene);
+        } else {
+            System.out.println("ESDFF");
+            logic.isSecondAttempt = true;
+            window.setScene(spellWordScene);
+        }
         System.out.println("New Question");
     }
 
@@ -130,10 +136,11 @@ public class NewQuiz {
     }
 
     private void displayIncorrectScene(){
-
-
-        //Scene
-       window.setScene(incorrectScene);
+        if(logic.isSecondAttempt) {
+            System.out.println("second attempt screen");
+        } else {
+            window.setScene(incorrectFirstScene);
+        }
     }
 
     private void displayCorrectScene(){

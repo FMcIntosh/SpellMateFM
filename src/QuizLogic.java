@@ -122,8 +122,6 @@ public class QuizLogic {
             isSecondAttempt = false;
             return true;
         } else {
-            //
-            isSecondAttempt = !isSecondAttempt;
             return false;
         }
     }

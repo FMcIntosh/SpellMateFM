@@ -12,8 +12,11 @@ import javafx.event.ActionEvent;
 
 public class Main extends Application {
 
-    private Stage window;
+    private static Stage window;
+    private static Scene scene;
     private double _buttonSize = 200;
+    public static double applicationHeight = 500;
+    public static double applicationWidth = 500;
     public static void main(String[] args) {
         FileLogic.createFiles();
 	    launch(args);
@@ -51,12 +54,15 @@ public class Main extends Application {
         layout.setAlignment(Pos.CENTER);
 
         //Scene
-        Scene scene = new Scene(layout, 500, 500);
+        scene = new Scene(layout, 500, 500);
 
         window.setScene(scene);
         window.show();
 
+    }
 
+    public static void setMenu() {
+        window.setScene(scene);
     }
 
 }

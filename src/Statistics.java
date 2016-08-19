@@ -1,6 +1,7 @@
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -57,14 +58,16 @@ public class Statistics {
         table.setItems(getWordStatistics());
         table.getColumns().addAll(wordColumn, faultedColumn, failedColumn, masteredColumn);
 
+        Button menuButton = new Button("Menu");
+        menuButton.setOnAction(event -> Main.setMenu());
         VBox root = new VBox();
 
-        root.getChildren().addAll(table);
+        root.getChildren().addAll(table, menuButton);
 
         ScrollPane scrollpane = new ScrollPane();
         scrollpane.setFitToWidth(true);
         scrollpane.setFitToHeight(true);
-        scrollpane.setPrefSize(500, 200);
+        scrollpane.setPrefSize(Main.applicationWidth, Main.applicationHeight);
         scrollpane.setContent(root);
         return new Scene(scrollpane);
     }

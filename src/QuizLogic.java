@@ -1,7 +1,4 @@
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -119,15 +116,25 @@ public class QuizLogic {
      * Updates state to check if it is the second attempt
      */
     public boolean checkAnswer(String attempt) {
-        System.out.println("Checking answer for: " + _wordsInQuiz.get(_currentWordNumber -1));
-        if (attempt.equals(_wordsInQuiz.get(_currentWordNumber -1))) {
+        System.out.println("Checking answer for: " + _wordsInQuiz.get(_currentWordNumber - 1));
+        if (attempt.equals(_wordsInQuiz.get(_currentWordNumber - 1))) {
             // If correct then can't be on second attempt
+            if (isSecondAttempt) {
+                FileLogic.addWord(FileLogic.faulted_stats, _currentWord);
+            } else {
+                FileLogic.addWord(FileLogic.mastered_stats, _currentWord);
+            }
             isSecondAttempt = false;
             return true;
         } else {
+            if (isSecondAttempt) {
+                FileLogic.addWord(FileLogic.failed_stats, _currentWord);
+            }
             return false;
+
         }
     }
+
 
     public void sayWord() {
         System.out.println(_currentWord);

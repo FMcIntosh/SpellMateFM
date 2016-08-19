@@ -1,7 +1,4 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.Collection;
 
 /**
@@ -50,5 +47,18 @@ public class FileLogic {
         }
     }
 
-    public static void addWord(String file){}
+    public static void addWord(String file, String word){
+        PrintWriter output = null;
+        try {
+            output = new PrintWriter(new FileWriter(file, true));
+            System.out.println("Writing word to file: " + word);
+            output.println(word);
+            output.close();
+
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+
 }

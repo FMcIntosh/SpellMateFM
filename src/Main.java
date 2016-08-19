@@ -11,8 +11,8 @@ public class Main extends Application {
     private static Stage window;
     private static Scene scene;
     private double _buttonSize = 200;
-    public static double applicationHeight = 500;
-    public static double applicationWidth = 500;
+    public static double applicationHeight = 2000;
+    public static double applicationWidth = 2000;
     public static void main(String[] args) {
         FileLogic.createFiles();
 	    launch(args);
@@ -24,7 +24,7 @@ public class Main extends Application {
         //Main window with menu
         window = primaryStage;
         window.setTitle("Spelling Mate");
-
+        window.setMaximized(true);
         //Components
         Label label = new Label("Welcome to SpellMate!");
         Button quizButton = new Button("New Spelling Quiz");
@@ -52,13 +52,15 @@ public class Main extends Application {
         //Scene
         scene = new Scene(layout, 500, 500);
 
-        window.setMaximized(true);
+
         window.setScene(scene);
+        window.setMaximized(true);
         window.show();
 
     }
 
     public static void setMenu() {
+        window.setMaximized(true);
         window.setScene(scene);
     }
 

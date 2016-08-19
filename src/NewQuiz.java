@@ -12,10 +12,11 @@ import javafx.stage.Stage;
  */
 public class NewQuiz {
     private Stage window;
-    private Scene startScene, spellWordScene, correctScene, faultedScene, failedScene, noWordsScene;
+    private Scene startScene, spellWordScene, faultedScene, failedScene, noWordsScene;
     private int _sceneWidth, _sceneHeight;
     private boolean _isReview;
     private QuizLogic logic;
+    public TextField input;
 
     NewQuiz(String wordsFile, boolean isReview) {
         logic = new QuizLogic(wordsFile);
@@ -76,7 +77,7 @@ public class NewQuiz {
 
         // ----------------------------------------------- New quiz scene
         //Components 2
-        TextField input = new TextField("Spell word here");
+        input = new TextField("Spell word here");
         Button checkButton = new Button ("Check");
         checkButton.setOnAction(event -> checkAnswer(input.getText()));
         Button sayButton = new Button ("Say Word");
@@ -97,17 +98,7 @@ public class NewQuiz {
 
         spellWordScene = new Scene(layout2, _sceneWidth, _sceneHeight);
 
-        // ----------------------------------------------- Correct scene
-        //Components
-        Label label3 = new Label("Correct");
-        Button nextButton = new Button("Next Question");
-        nextButton.setOnAction(e -> newQuestion());
-        //Layout
-        VBox layout3 = new VBox(10);
-        layout3.getChildren().addAll(label3, nextButton);
-        layout3.setAlignment(Pos.CENTER);
 
-        correctScene = new Scene(layout3, _sceneWidth, _sceneHeight);
 
         // ----------------------------------------------- Incorrect First scene
         //Components
@@ -124,6 +115,8 @@ public class NewQuiz {
         // ----------------------------------------------- noWords scene
         //Components
         againButton.setOnAction(e -> failed());
+        Button nextButton = new Button("Next Question");
+        nextButton.setOnAction(e -> newQuestion());
         //Layout
         VBox layout5 = new VBox(10);
         layout5.getChildren().addAll(label4, nextButton);
@@ -179,6 +172,7 @@ public class NewQuiz {
 
 
     private void checkAnswer(String attempt){
+        input.setText("");
         System.out.println("checked");
         boolean isCorrect = logic.checkAnswer(attempt);
         System.out.println("Is the attempt correct? " + isCorrect);

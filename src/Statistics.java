@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Comparator;
 
 /**
  * Created by Fraser McIntosh on 20/08/2016.
@@ -30,6 +31,23 @@ public class Statistics {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        /*
+         * Sort the statistics by most times mastered
+         */
+        FXCollections.sort(statistics, new Comparator<WordStatistic>() {
+            @Override
+            public int compare(WordStatistic s1, WordStatistic s2) {
+                if(s1.getMastered() < s2.getMastered()){
+                    return 1;
+                } else if (s1.getMastered()== s2.getMastered()) {
+                    return 0;
+                } else {
+                    return -1;
+                }
+            }
+        });
+
         return statistics;
     }
 

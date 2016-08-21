@@ -13,7 +13,6 @@ public class WordStatistic {
 
     WordStatistic(String word) {
         this.word = new SimpleStringProperty(word);
-
         faulted = new SimpleIntegerProperty(FileLogic.countOccurences(FileLogic.faulted_stats, word));
         failed = new SimpleIntegerProperty(FileLogic.countOccurences(FileLogic.failed_stats, word));
         mastered = new SimpleIntegerProperty(FileLogic.countOccurences(FileLogic.mastered_stats, word));

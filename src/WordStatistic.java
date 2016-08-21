@@ -1,6 +1,5 @@
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 
 /**
  * Created by Fraser McIntosh on 20/08/2016.
@@ -43,7 +42,7 @@ public class WordStatistic {
     }
 
     public int getMastered() {
-        return mastered.get();
+         return mastered.get();
     }
 
     public void setMastered(int mastered) {

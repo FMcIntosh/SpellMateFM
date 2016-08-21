@@ -1,3 +1,5 @@
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -29,7 +31,13 @@ public class ReviewQuiz {
         Label label = new Label();
         label.setText("Review Your Mistakes");
         Button startButton = new Button("Start Review");
-        startButton.setOnAction(e -> startQuiz());
+        startButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                startQuiz();
+            }
+        });
+
 
         //Layout
         VBox layout1 = new VBox(10);
@@ -42,7 +50,7 @@ public class ReviewQuiz {
         //Components 2
         TextField input = new TextField("Spell word here");
         Button checkButton = new Button("Check");
-        checkButton.setOnAction(event -> System.out.println("Check!"));
+      //  checkButton.setOnAction(event -> System.out.println("Check!"));
 
         //Layout
         VBox layout2 = new VBox(2);

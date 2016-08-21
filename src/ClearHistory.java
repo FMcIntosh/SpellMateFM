@@ -1,3 +1,5 @@
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -15,7 +17,7 @@ public class ClearHistory {
         //Clear history, maybe could be in a better place in terms of responsibilities
         FileLogic.clearFiles();
 
-        Stage window = new Stage();
+        final Stage window = new Stage();
 
         //Block user interaction with other windows until this window is
         // dealt with
@@ -27,7 +29,13 @@ public class ClearHistory {
         Label label = new Label();
         label.setText("History has been cleared");
         Button closeButton = new Button("OK");
-        closeButton.setOnAction(e -> window.close());
+        closeButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                window.close();
+            }
+        });
+
 
         //Layout
         VBox layout = new VBox(10);

@@ -9,6 +9,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
+
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -56,19 +58,19 @@ public class Statistics {
     public Scene constructScene() {
         TableColumn<WordStatistic, String> wordColumn = new TableColumn<>("Word");
         wordColumn.setMinWidth(200);
-        wordColumn.setCellValueFactory(new PropertyValueFactory<>("word"));
+        wordColumn.setCellValueFactory(new PropertyValueFactory<WordStatistic, String>("word"));
 
         TableColumn<WordStatistic, Integer> faultedColumn = new TableColumn<>("Faults");
         faultedColumn.setMinWidth(100);
-        faultedColumn.setCellValueFactory(new PropertyValueFactory<>("faulted"));
+        faultedColumn.setCellValueFactory(new PropertyValueFactory<WordStatistic, Integer>("faulted"));
 
         TableColumn<WordStatistic, Integer> failedColumn = new TableColumn<>("Failures");
         failedColumn.setMinWidth(100);
-        failedColumn.setCellValueFactory(new PropertyValueFactory<>("failed"));
+        failedColumn.setCellValueFactory(new PropertyValueFactory<WordStatistic, Integer>("failed"));
 
         TableColumn<WordStatistic, Integer> masteredColumn = new TableColumn<>("Mastered");
         masteredColumn.setMinWidth(100);
-        masteredColumn.setCellValueFactory(new PropertyValueFactory<>("mastered"));
+        masteredColumn.setCellValueFactory(new PropertyValueFactory<WordStatistic, Integer>("mastered"));
 
         TableView<WordStatistic> table = new TableView<>();
         table.setItems(getWordStatistics());

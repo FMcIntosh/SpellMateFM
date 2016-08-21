@@ -1,4 +1,6 @@
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -25,23 +27,44 @@ public class Main extends Application {
         window = primaryStage;
         window.setTitle("Spelling Mate");
         //Components
+
         Label label = new Label("Welcome to SpellMate!");
         Button quizButton = new Button("New Spelling Quiz");
         quizButton.setPrefWidth(_buttonSize);
-        quizButton.setOnAction(event -> new NewQuiz(FileLogic.wordlist, false).display());
-
+        quizButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                new NewQuiz(FileLogic.wordlist, false).display();
+            }
+        });
 
         Button reviewButton = new Button("Review");
         reviewButton.setPrefWidth(_buttonSize);
-        reviewButton.setOnAction(event -> new NewQuiz(FileLogic.reviewlist, true).display());
+        reviewButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                new NewQuiz(FileLogic.reviewlist, true).display();
+            }
+        });
+
 
         Button statisticsButton = new Button("Statistics");
         statisticsButton.setPrefWidth(_buttonSize);
-        statisticsButton.setOnAction(event -> window.setScene(new Statistics().constructScene()));
+        statisticsButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                window.setScene(new Statistics().constructScene());
+            }
+        });
 
         Button clearButton = new Button("Clear History");
         clearButton.setPrefWidth(_buttonSize);
-        clearButton.setOnAction(event -> new ClearHistory().display());
+        clearButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                new ClearHistory().display();
+            }
+        });
 
 
         //Layout
@@ -59,7 +82,6 @@ public class Main extends Application {
     }
 
     public static void setMenu() {
-        window.setMaximized(true);
         window.setScene(scene);
     }
 

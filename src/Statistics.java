@@ -1,5 +1,7 @@
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -73,7 +75,12 @@ public class Statistics {
         table.getColumns().addAll(wordColumn, faultedColumn, failedColumn, masteredColumn);
 
         Button menuButton = new Button("Menu");
-        menuButton.setOnAction(event -> Main.setMenu());
+        menuButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Main.setMenu();
+            }
+        });
         VBox root = new VBox();
 
         root.getChildren().addAll(table, menuButton);

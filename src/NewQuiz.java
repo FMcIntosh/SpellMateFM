@@ -1,3 +1,5 @@
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -65,7 +67,12 @@ public class NewQuiz {
             label = new Label("Review");
         }
         Button startButton = new Button("Start Quiz");
-        startButton.setOnAction(e -> startQuiz());
+        startButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                startQuiz();
+            }
+        });
 
         //Layout
         VBox layout1 = new VBox(10);
@@ -77,12 +84,24 @@ public class NewQuiz {
 
         // ----------------------------------------------- New quiz scene
         //Components 2
-        input = new TextField("Spell word here");
+        input = new TextField();
+        input.setPromptText("Spell word here");
         Button checkButton = new Button ("Check");
-        checkButton.setOnAction(event -> checkAnswer(input.getText()));
+        checkButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                checkAnswer(input.getText());
+            }
+        });
+
         Button sayButton = new Button ("Say Word");
         // Change this for review
-        sayButton.setOnAction(event -> logic.sayWord(logic._currentWord));
+        sayButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                logic.sayWord(logic._currentWord);
+            }
+        });
 
         //Layout
         VBox layout2 = new VBox(2);
@@ -91,7 +110,12 @@ public class NewQuiz {
         //Logic for if this is a review quiz
         if(_isReview) {
             Button spellButton = new Button("Spell Out Word");
-            spellButton.setOnAction(event -> logic.spellOutWord());
+            spellButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    logic.spellOutWord();
+                }
+            });
             layout2.getChildren().addAll(spellButton);
         }
         layout2.setAlignment(Pos.CENTER);
@@ -104,7 +128,12 @@ public class NewQuiz {
         //Components
         Label label4 = new Label("Incorrect");
         Button againButton = new Button("Try Again");
-        againButton.setOnAction(e -> window.setScene(spellWordScene));
+        againButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                window.setScene(spellWordScene);
+            }
+        });
         //Layout
         VBox layout4 = new VBox(10);
         layout4.getChildren().addAll(label4, againButton);
@@ -114,9 +143,21 @@ public class NewQuiz {
 
         // ----------------------------------------------- noWords scene
         //Components
-        againButton.setOnAction(e -> failed());
+
+        againButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                failed();
+            }
+        });
+
         Button nextButton = new Button("Next Question");
-        nextButton.setOnAction(e -> newQuestion());
+        nextButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                newQuestion();
+            }
+        });
         //Layout
         VBox layout5 = new VBox(10);
         layout5.getChildren().addAll(label4, nextButton);
@@ -126,9 +167,15 @@ public class NewQuiz {
 
         // ----------------------------------------------- noWords scene
         //Components
+
         Label label6 = new Label("There are no words to be quizzed on!");
         Button okButton = new Button("OK");
-        okButton.setOnAction(e -> finish());
+        okButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                finish();
+            }
+        });
 
         //Layout
         VBox layout7 = new VBox(10);
@@ -172,7 +219,6 @@ public class NewQuiz {
 
 
     private void checkAnswer(String attempt){
-        input.setText("");
         System.out.println("checked");
         boolean isCorrect = logic.checkAnswer(attempt);
         System.out.println("Is the attempt correct? " + isCorrect);
@@ -211,10 +257,20 @@ public class NewQuiz {
         Button nextButton = new Button();
         if(isLastAttempt) {
             nextButton.setText("Finish");
-            nextButton.setOnAction(e -> finish());
+            nextButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    finish();
+                }
+            });
         } else {
             nextButton.setText("Next Question");
-            nextButton.setOnAction(e -> newQuestion());
+            nextButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    newQuestion();
+                }
+            });
         }
         //Layout
         VBox layout3 = new VBox(10);
@@ -231,10 +287,20 @@ public class NewQuiz {
         Button nextButton = new Button();
         if(isLastAttempt) {
             nextButton.setText("Finish");
-            nextButton.setOnAction(e -> finish());
+            nextButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    finish();
+                }
+            });
         } else {
             nextButton.setText("Next Question");
-            nextButton.setOnAction(e -> newQuestion());
+            nextButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    newQuestion();
+                }
+            });
         }
         //Layout
         VBox layout3 = new VBox(10);

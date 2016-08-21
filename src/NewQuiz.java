@@ -82,7 +82,7 @@ public class NewQuiz {
         checkButton.setOnAction(event -> checkAnswer(input.getText()));
         Button sayButton = new Button ("Say Word");
         // Change this for review
-        sayButton.setOnAction(event -> logic.sayWord());
+        sayButton.setOnAction(event -> logic.sayWord(logic._currentWord));
 
         //Layout
         VBox layout2 = new VBox(2);

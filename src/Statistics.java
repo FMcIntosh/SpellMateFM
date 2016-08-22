@@ -2,6 +2,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -74,7 +75,7 @@ public class Statistics {
 
         TableView<WordStatistic> table = new TableView<>();
         table.setItems(getWordStatistics());
-        table.getColumns().addAll(wordColumn, faultedColumn, failedColumn, masteredColumn);
+        boolean b = table.getColumns().addAll(wordColumn, faultedColumn, failedColumn, masteredColumn);
 
         Button menuButton = new Button("Menu");
         menuButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -86,6 +87,7 @@ public class Statistics {
         VBox root = new VBox();
 
         root.getChildren().addAll(table, menuButton);
+        root.setAlignment(Pos.CENTER);
 
         ScrollPane scrollpane = new ScrollPane();
         scrollpane.setFitToWidth(true);

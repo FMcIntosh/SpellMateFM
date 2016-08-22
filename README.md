@@ -6,7 +6,7 @@ SpellMate is a spelling aid that tests your spelling by speaking words out loud,
 - Clear History: Clears all history from the app
 
 ### To run SpellMate:
-**TerminaL:** in the terminal navigate to the 'SpellMate' directory, and run the command 'bash SpellMate.sh'.
+**Terminal:** in the terminal navigate to the 'SpellMate' directory, and run the command 'bash SpellMate.sh'.
 
 **Double-click:** Double-click on SpellMate.sh. First ensure that the File Manager preferences are set to allow executables to run when clicked.
 

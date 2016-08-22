@@ -1,12 +1,13 @@
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -19,31 +20,20 @@ public class NewQuiz {
     private boolean _isReview;
     private QuizLogic logic;
     public TextField input;
+    private Label wordCountLabel;
 
-    NewQuiz(String wordsFile, boolean isReview) {
+    NewQuiz(String wordsFile, boolean isReview, Stage window) {
         logic = new QuizLogic(wordsFile);
         _isReview = isReview;
+        this.window= window;
     }
 
     public void setUp() {
-        _sceneWidth = 300;
-        _sceneHeight = 300;
-
-        //Block user interaction with other windows until this window is
-        // dealt with
-        window.initModality(Modality.APPLICATION_MODAL);
-        //Logic for if this is a review quiz
-        if(_isReview) {
-            window.setTitle("Review");
-        } else {
-            window.setTitle("Spelling Quiz");
-        }
-
-        window.setMinWidth(250);
+        _sceneWidth = 500;
+        _sceneHeight = 500;
     }
 
     public void display() {
-        window = new Stage();
         setUp();
         buildScenes();
 
@@ -53,8 +43,6 @@ public class NewQuiz {
         } else {
             window.setScene(noWordsScene);
         }
-        //Needs to be closed before returning
-        window.showAndWait();
     }
 
     private void buildScenes() {
@@ -84,9 +72,11 @@ public class NewQuiz {
 
         // ----------------------------------------------- New quiz scene
         //Components 2
+        Label label1 = new Label("New Spelling Quiz");
+        wordCountLabel = new Label("Enter Word " + (logic._currentWordNumber + 1) +" of " + logic._numWordsInQuiz);
         input = new TextField();
         input.setPromptText("Spell word here");
-        Button checkButton = new Button ("Check");
+        Button checkButton = new Button ("Submit");
         checkButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -102,12 +92,9 @@ public class NewQuiz {
                 logic.sayWord(logic._currentWord);
             }
         });
-
         //Layout
-        VBox layout2 = new VBox(2);
-        layout2.getChildren().addAll(sayButton, input, checkButton);
+        HBox layout2 = new HBox();
 
-        //Logic for if this is a review quiz
         if(_isReview) {
             Button spellButton = new Button("Spell Out Word");
             spellButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -117,10 +104,18 @@ public class NewQuiz {
                 }
             });
             layout2.getChildren().addAll(spellButton);
+            label1.setText("Review Quiz");
         }
-        layout2.setAlignment(Pos.CENTER);
+        layout2.getChildren().addAll(sayButton, input, checkButton);
 
-        spellWordScene = new Scene(layout2, _sceneWidth, _sceneHeight);
+        //Logic for if this is a review quiz
+
+        layout2.setAlignment(Pos.CENTER);
+        VBox outerLayout = new VBox(10);
+        outerLayout.setPadding(new Insets(30, 0, 0 , 0));
+        outerLayout.getChildren().addAll(label1,wordCountLabel, layout2);
+        outerLayout.setAlignment(Pos.CENTER);
+        spellWordScene = new Scene(outerLayout, _sceneWidth, _sceneHeight);
 
 
 
@@ -187,7 +182,6 @@ public class NewQuiz {
 
 
     private void startQuiz() {
-        System.out.println("Quiz started");
         if(logic._hasWords) {
             newQuestion();
         } else {
@@ -198,15 +192,13 @@ public class NewQuiz {
     private void newQuestion() {
         logic.isSecondAttempt = false;
         logic.nextWord();
+        wordCountLabel.setText("Enter Word " + logic._currentWordNumber +" of " + logic._numWordsInQuiz);
         window.setScene(spellWordScene);
-        System.out.println("Started a new Question");
     }
 
     private void failed() {
-        System.out.println("Word has been answered incorrectly");
         if(logic.isSecondAttempt) {
             if (logic.isLastAttempt) {
-                System.out.println("last logic stuff");
             } else {
                 window.setScene(failedScene);
             }
@@ -219,18 +211,25 @@ public class NewQuiz {
 
 
     private void checkAnswer(String attempt){
-        System.out.println("checked");
-        boolean isCorrect = logic.checkAnswer(attempt);
-        System.out.println("Is the attempt correct? " + isCorrect);
-        if(isCorrect) {
-            displayCorrectScene();
-        } else {
-            displayIncorrectScene();
+        //allow for uppercase
+        attempt = attempt.toLowerCase();
+        input.clear();
+        input.setPromptText("Spell word here");
+        //Validate
+        if(!attempt.matches("[a-zA-Z]+")){
+            displayInvalidInput();
+        }  else {
+            boolean isCorrect = logic.checkAnswer(attempt);
+            if (isCorrect) {
+                displayCorrectScene();
+            } else {
+                displayIncorrectScene();
+            }
         }
     }
 
     private void displayIncorrectScene(){
-        System.out.println("is this the second attempt? " + logic.isSecondAttempt);
+        logic.sayWord("Incorrect");
         if(logic.isSecondAttempt) {
             Scene scene = buildFailedScene(logic.isLastAttempt);
             window.setScene(scene);
@@ -240,6 +239,7 @@ public class NewQuiz {
     }
 
     private void displayCorrectScene(){
+        logic.sayWord("Correct");
 
         //Scene
         Scene scene = buildCorrectScene(logic.isLastAttempt);
@@ -311,12 +311,13 @@ public class NewQuiz {
         // faultedScene;
     }
 
+    public void displayInvalidInput() {
+        new InvalidInput().display();
+    }
 
     public void finish() {
-        System.out.println("Close window");
-        window.close();
+        Main.setMenu();
     }
-    //public Scene buildFaultedScene() {}
 
 
 }
